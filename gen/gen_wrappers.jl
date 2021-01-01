@@ -79,9 +79,14 @@ for (mod, desc, urltail) in (
     ("H5TB", "Table Interface", "Tables"),
     )
     global apidocs
-    funcs = join(sort!(bound_api[mod]), "\n")
+    funclist = sort!(bound_api[mod])
+    index = join(["- [`$f`](@ref HDF5.$f)" for f in funclist], "\n")
+    funcs = join(funclist, "\n")
     apidocs *= """
+        ---
+
         ## [`$mod`](https://portal.hdfgroup.org/display/HDF5/$urltail) — $desc
+        $index
         ```@docs
         $funcs
         ```
